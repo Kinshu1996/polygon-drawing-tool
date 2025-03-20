@@ -16,9 +16,28 @@ const PolygonTool = () => {
     drawCanvas(ctx);
   }, [polygons, currentPolygon, backgroundImage]);
 
-  const drawCanvas = (ctx) => {
+//   const drawCanvas = (ctx) => {
+//     ctx.clearRect(0, 0, 800, 600);
+//     if (backgroundImage) ctx.drawImage(backgroundImage, 0, 0);
+//     drawPolygons(ctx);
+//     drawCurrentPolygon(ctx);
+//   };
+
+const drawCanvas = (ctx) => {
     ctx.clearRect(0, 0, 800, 600);
-    if (backgroundImage) ctx.drawImage(backgroundImage, 0, 0);
+    if (backgroundImage) {
+      const { image } = backgroundImage;
+      const canvas = ctx.canvas;
+  
+      // Calculate scale ratio to fit image in canvas
+      const scale = Math.min(canvas.width / image.width, canvas.height / image.height);
+      const imgWidth = image.width * scale;
+      const imgHeight = image.height * scale;
+      const xOffset = (canvas.width - imgWidth) / 2;
+      const yOffset = (canvas.height - imgHeight) / 2;
+  
+      ctx.drawImage(image, xOffset, yOffset, imgWidth, imgHeight);
+    }
     drawPolygons(ctx);
     drawCurrentPolygon(ctx);
   };
@@ -128,7 +147,13 @@ const handleCanvasClick = (e) => {
       const reader = new FileReader();
       reader.onload = (event) => {
         const img = new Image();
-        img.onload = () => setBackgroundImage(img);
+        img.onload = () => {
+          setBackgroundImage({
+            image: img,
+            width: img.width,
+            height: img.height,
+          });
+        };
         img.src = event.target.result;
       };
       reader.readAsDataURL(file);
@@ -149,6 +174,7 @@ const handleCanvasClick = (e) => {
         <button onClick={resetCanvas} className="reset-btn">Reset</button>
       </div>
       <canvas ref={canvasRef} width={800} height={600} onClick={handleCanvasClick}></canvas>
+      
       <div className="polygon-coordinates">
         <h2>Polygon Coordinates</h2>
         {polygons.length === 0 ? (
