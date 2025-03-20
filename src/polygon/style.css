@@ -1,0 +1,69 @@
+.polygon-tool {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #2c3e50;
+  }
+  
+  .controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  button, input[type="file"] {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #2980b9;
+  }
+  
+  .reset-btn {
+    background-color: red;
+  }
+  
+  .reset-btn:hover {
+    background-color: darkred;
+  }
+  
+  canvas {
+    display: block;
+    border: 1px solid #ccc;
+    cursor: crosshair;
+    margin: auto;
+  }
+  
+  .polygon-coordinates {
+    margin-top: 20px;
+  }
+  
+  .polygon-data {
+    margin-bottom: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
